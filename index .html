@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Shibu</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e0c3fc, #8ec5fc);
+            color: #222;
+            transition: 0.8s;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 8%;
+        }
+
+        nav h2 {
+            font-size: 25px;
+        }
+
+        /* Main section */
+
+        .container {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .birthday {
+            font-size: 22px;
+            letter-spacing: 5px;
+            margin-bottom: 20px;
+        }
+
+        .name {
+            font-size: clamp(55px, 12vw, 120px);
+            font-weight: 900;
+            letter-spacing: 8px;
+            transition: 0.5s;
+        }
+
+        .message {
+            font-size: 18px;
+            margin: 20px 0;
+            line-height: 1.7;
+        }
+
+        .surprise {
+            padding: 15px 35px;
+            border: none;
+            border-radius: 30px;
+            background: #222;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .surprise:hover {
+            transform: scale(1.1);
+        }
+
+        /* Toggle switch */
+
+        .switch {
+            position: relative;
+            width: 65px;
+            height: 32px;
+        }
+
+        .switch input {
+            display: none;
+        }
+
+        .slider {
+            position: absolute;
+            inset: 0;
+            background: #777;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.4s;
+        }
+
+        .slider::before {
+            content: "☀️";
+            position: absolute;
+            height: 26px;
+            width: 26px;
+            left: 3px;
+            top: 3px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.4s;
+        }
+
+        input:checked + .slider {
+            background: #ff4081;
+        }
+
+        input:checked + .slider::before {
+            transform: translateX(33px);
+            content: "🎉";
+        }
+
+        /* Party mode */
+
+        body.party {
+            background: linear-gradient(135deg, #1b0033, #6a0572, #c2185b);
+            color: white;
+        }
+
+        body.party .name {
+            color: #ffeb3b;
+            text-shadow: 0 0 15px #ffeb3b,
+                         0 0 35px #ff4081;
+            transform: scale(1.08);
+        }
+
+        body.party .surprise {
+            background: #ff4081;
+            color: white;
+        }
+
+        body.party nav h2 {
+            color: #ffeb3b;
+        }
+
+        /* Balloons */
+
+        .balloons {
+            display: none;
+            font-size: 50px;
+            margin: 25px;
+            animation: float 2s infinite alternate;
+        }
+
+        body.party .balloons {
+            display: block;
+        }
+
+        @keyframes float {
+            from {
+                transform: translateY(10px);
+            }
+            to {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Confetti */
+
+        .confetti {
+            position: fixed;
+            top: -20px;
+            width: 10px;
+            height: 15px;
+            animation: fall 3s linear forwards;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Mobile responsive */
+
+        @media (max-width: 600px) {
+            nav {
+                padding: 20px;
+            }
+
+            nav h2 {
+                font-size: 19px;
+            }
+
+            .birthday {
+                font-size: 15px;
+                letter-spacing: 3px;
+            }
+
+            .name {
+                letter-spacing: 4px;
+            }
+
+            .message {
+                font-size: 15px;
+            }
+
+            .balloons {
+                font-size: 35px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <h2>🎂 Shibu's Day</h2>
+
+        <label class="switch">
+            <input type="checkbox" id="mode">
+            <span class="slider"></span>
+        </label>
+    </nav>
+
+    <section class="container">
+
+        <p class="birthday">HAPPY BIRTHDAY TO YOU</p>
+
+        <h1 class="name">SHIBU</h1>
+
+        <p class="message">
+            Another year, another adventure! ❤️
+            <br>
+            May your life be filled with happiness,
+            laughter and unforgettable memories.
+        </p>
+
+        <div class="balloons">
+            🎈 🎊 🎈 🎉 🎈
+        </div>
+
+        <button class="surprise" onclick="celebrate()">
+            🎁 Click for Surprise
+        </button>
+
+    </section>
+
+    <script>
+
+        let mode = document.getElementById("mode");
+
+        mode.addEventListener("change", function() {
+
+            document.body.classList.toggle("party", mode.checked);
+
+            if(mode.checked) {
+                celebrate();
+            }
+
+        });
+
+        function celebrate() {
+
+            let colors = [
+                "#ffeb3b",
+                "#ff4081",
+                "#00e5ff",
+                "#76ff03",
+                "#ffffff"
+            ];
+
+            for(let i = 0; i < 100; i++) {
+
+                let confetti = document.createElement("div");
+
+                confetti.classList.add("confetti");
+
+                confetti.style.left = Math.random() * 100 + "vw";
+
+                confetti.style.backgroundColor =
+                    colors[Math.floor(Math.random() * colors.length)];
+
+                confetti.style.animationDuration =
+                    (Math.random() * 2 + 2) + "s";
+
+                document.body.appendChild(confetti);
+
+                setTimeout(() => {
+                    confetti.remove();
+                }, 4000);
+
+            }
+
+        }
+
+    </script>
+
+</body>
+</html>
